@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Chat from "./components/Chat";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 
 const ChatBot = () => {
   // State to store chat messages
@@ -9,6 +9,11 @@ const ChatBot = () => {
       id: "1",
       role: "assistant",
       content: "Hello! How can I assist you today?",
+    },
+    {
+      id: "1",
+      role: "assistant",
+      content: `\`\`\`tsx \n console.log("Hello World")\n \`\`\``
     },
   ]);
 
@@ -52,49 +57,49 @@ const ChatBot = () => {
   };
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="">
-      {/* Floating Chatbot Button */}
-      <button
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <MessageCircle className="w-6 h-6" />
-      </button>
+    <>
+    {/* Floating Chatbot Button */}
+    <button
+      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition"
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <MessageCircle className="w-6 h-6" />
+    </button>
 
-      {/* Chat Window */}
-      {isOpen && (
-        <div className="fixed inset-0 md:inset-auto md:bottom-22 md:right-6 md:w-[380px] md:max-h-[500px] bg-white shadow-lg rounded-lg border p-4 flex flex-col">
-          {/* Chat Header */}
-          <div className="flex justify-between items-center border-b pb-2">
-            <h3 className="text-lg font-semibold">Chatbot</h3>
-            <button
-              className="text-gray-500 hover:text-gray-700"
-              onClick={() => setIsOpen(false)}
-            >
-              ✖
-            </button>
-          </div>
-
-          {/* Chat Component */}
-          <div className="flex-grow overflow-y-auto">
-            <Chat
-              messages={messages}
-              input={input}
-              handleInputChange={handleInputChange}
-              handleSubmit={handleSubmit}
-              append={append}
-              isGenerating={false} // No AI processing state needed
-              stop={() => {}} // Placeholder stop function (not used here)
-              suggestions={[
-                "Generate a tasty vegan lasagna recipe for 3 people.",
-                "Generate a list of 5 questions for a frontend job interview.",
-                "Who won the 2022 FIFA World Cup?",
-              ]}
-            />
-          </div>
+    {/* Chat Window */}
+    {isOpen && (
+      <div className="fixed inset-0 md:inset-auto md:bottom-22 md:right-6 md:w-[380px] md:max-h-[500px] bg-white shadow-lg rounded-lg border p-4 flex flex-col">
+        {/* Chat Header */}
+        <div className="flex justify-between items-center border-b pb-2">
+          <h3 className="text-lg font-semibold">Chatbot</h3>
+          <button
+            className="text-gray-500 hover:text-gray-700"
+            onClick={() => setIsOpen(false)}
+          >
+            <X className="w-6 h-6"/>
+          </button>
         </div>
-      )}
-    </div>
+
+        {/* Chat Component */}
+        <div className="flex-grow overflow-y-auto">
+          <Chat
+            messages={messages}
+            input={input}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            append={append}
+            isGenerating={false} // No AI processing state needed
+            stop={() => {}} // Placeholder stop function (not used here)
+            suggestions={[
+              "Generate a tasty vegan lasagna recipe for 3 people.",
+              "Generate a list of 5 questions for a frontend job interview.",
+              "Who won the 2022 FIFA World Cup?",
+            ]}
+          />
+        </div>
+      </div>
+    )}
+  </>
   );
 };
 

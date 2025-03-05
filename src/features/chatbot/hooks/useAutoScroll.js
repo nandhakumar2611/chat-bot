@@ -3,23 +3,21 @@ import { useEffect, useRef, useState } from "react";
 // How many pixels from the bottom of the container to enable auto-scroll
 const ACTIVATION_THRESHOLD = 50;
 
-function useAutoScroll(dependencies) {
-  console.log(dependencies);
-  
+function useAutoScroll(dependencies) {  
   const containerRef = useRef(null);
   const previousScrollTop = useRef(null);
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
 
-  const scrollToBottom = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  const scrollToBottom = () => {    
+    if (containerRef.current) {            
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;      
     }
   };
 
-  const handleScroll = () => {
+  const handleScroll = () => {    
     if (containerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-
+      
       const isScrollingUp = previousScrollTop.current
         ? scrollTop < previousScrollTop.current
         : false;
@@ -41,7 +39,7 @@ function useAutoScroll(dependencies) {
   };
 
   useEffect(() => {
-    if (containerRef.current) {
+    if (containerRef.current) {            
       previousScrollTop.current = containerRef.current.scrollTop;
     }
   }, []);

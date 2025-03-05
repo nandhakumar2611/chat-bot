@@ -80,7 +80,7 @@ const Chat = ({
     [onRateResponse]
   );
 
-  return (
+  return (    
     <ChatContainer className={className}>
       {isEmpty && append && suggestions ? (
         <PromptSuggestions label="Try these prompts ✨" append={append} suggestions={suggestions} />
@@ -119,11 +119,6 @@ export default Chat;
 const ChatMessages = ({ messages, children }) => {
   const { containerRef, scrollToBottom, handleScroll, shouldAutoScroll, handleTouchStart } =
     useAutoScroll([messages]);
-    // console.log(containerRef, scrollToBottom, handleScroll, shouldAutoScroll, handleTouchStart);
-    console.log(shouldAutoScroll);
-    
-    
-
   return (
     <div
       className="grid grid-cols-1 overflow-y-auto pb-4"
