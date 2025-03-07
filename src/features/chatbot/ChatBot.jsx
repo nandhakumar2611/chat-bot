@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Chat from "./components/Chat";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, MessageSquare, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ChatBot = () => {
   // State to store chat messages
@@ -13,7 +14,7 @@ const ChatBot = () => {
     {
       id: "1",
       role: "assistant",
-      content: `\`\`\`tsx \n console.log("Hello World")\n \`\`\``
+      content: `\`\`\`tsx \n console.log("Hello World")\n \`\`\``,
     },
   ]);
 
@@ -55,51 +56,47 @@ const ChatBot = () => {
       }, 1000);
     }
   };
+  
   const [isOpen, setIsOpen] = useState(false);
+  
+
+ 
   return (
     <>
-    {/* Floating Chatbot Button */}
-    <button
-      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition"
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      <MessageCircle className="w-6 h-6" />
-    </button>
+ 
+ <div className="fixed bottom-5 right-5">
+      {/* Toggle Chat Button */}
+      <Button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="p-3 rounded-full shadow-lg"
+      >
+        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+      </Button>
 
-    {/* Chat Window */}
-    {isOpen && (
-      <div className="fixed inset-0 md:inset-auto md:bottom-22 md:right-6 md:w-[380px] md:max-h-[500px] bg-white shadow-lg rounded-lg border p-4 flex flex-col">
-        {/* Chat Header */}
-        <div className="flex justify-between items-center border-b pb-2">
-          <h3 className="text-lg font-semibold">Chatbot</h3>
-          <button
-            className="text-gray-500 hover:text-gray-700"
-            onClick={() => setIsOpen(false)}
-          >
-            <X className="w-6 h-6"/>
-          </button>
-        </div>
+      {/* Chat Box (Visible only when isOpen is true) */}
+      {isOpen && (
+        <div className="fixed bottom-16 right-5 w-80 md:w-96  h-[500px] bg-white shadow-lg rounded-lg border border-gray-200 flex flex-col">
+          {/* Chat Header */}
+          <div className="flex justify-between items-center p-3 bg-gray-100 border-b">
+            <h2 className="text-lg font-semibold">Chat Support</h2>
+            <Button onClick={() => setIsOpen(false)} variant="ghost">
+              <X size={20} />
+            </Button>
+          </div>
 
-        {/* Chat Component */}
-        <div className="flex-grow overflow-y-auto">
-          <Chat
-            messages={messages}
-            input={input}
-            handleInputChange={handleInputChange}
-            handleSubmit={handleSubmit}
-            append={append}
-            isGenerating={false} // No AI processing state needed
-            stop={() => {}} // Placeholder stop function (not used here)
-            suggestions={[
-              "Generate a tasty vegan lasagna recipe for 3 people.",
-              "Generate a list of 5 questions for a frontend job interview.",
-              "Who won the 2022 FIFA World Cup?",
-            ]}
-          />
+          {/* Chat Component */}
+          <div className="flex-1 overflow-y-auto p-3">
+            <Chat
+              messages={messages}
+              input={input}
+              handleInputChange={handleInputChange}
+              handleSubmit={handleSubmit}
+            />
+          </div>
         </div>
-      </div>
-    )}
-  </>
+      )}
+    </div>
+    </>
   );
 };
 

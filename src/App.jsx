@@ -3,7 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Button } from "@/components/ui/button"
-import { ChatBot } from './features/chatbot'
+import { ChatWidget } from './features/chatbot'
+// import { ChatBot } from './features/chatbot'
 
 
 
@@ -16,7 +17,8 @@ function App() {
     <>
       {/* <h1 className='text-5xl text-center p-16'>Hello World</h1> */}
       {/* <Button variant="default">Button</Button> */}
-      <ChatBot/>
+      {/* <ChatBot/> */}
+      <ChatWidget/>
 
     </>
   )

@@ -11,4 +11,21 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    lib: {
+      entry: 'src/features/chatbot/index.jsx',
+      name: 'Chatbot',
+      fileName: 'chatbot',
+      formats: ['umd', 'es'], // UMD for script tag, ES for NPM
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom'], // Externalize React
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    },
+  },
 })
